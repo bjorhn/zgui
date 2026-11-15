@@ -499,17 +499,6 @@ void ImGui_ImplGlfw_WindowFocusCallback(GLFWwindow* window, int focused)
     io.AddFocusEvent(focused != 0);
 }
 
-static void ImGui_ImplGlfw_SetMousePosWithScaling(ImGui_ImplGlfw_Data* bd, GLFWwindow* window, ImGuiIO& io, double x, double y)
-{
-    float scale = ImGui_ImplGlfw_GetContentScaleForWindow(window);
-
-    x *= scale;
-    y *= scale;
-
-    io.AddMousePosEvent((float)x, (float)y);
-    bd->LastValidMousePos = ImVec2((float)x, (float)y);
-}
-
 void ImGui_ImplGlfw_CursorPosCallback(GLFWwindow* window, double x, double y)
 {
     ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData(window);
@@ -524,7 +513,8 @@ void ImGui_ImplGlfw_CursorPosCallback(GLFWwindow* window, double x, double y)
         x += window_x;
         y += window_y;
     }
-    ImGui_ImplGlfw_SetMousePosWithScaling(bd, window, io, x, y);
+    io.AddMousePosEvent((float)x, (float)y);
+    bd->LastValidMousePos = ImVec2((float)x, (float)y);
 }
 
 // Workaround: X11 seems to send spurious Leave/Enter events which would make us lose our position,
@@ -866,7 +856,8 @@ static void ImGui_ImplGlfw_UpdateMouseData()
                     mouse_x += window_x;
                     mouse_y += window_y;
                 }
-                ImGui_ImplGlfw_SetMousePosWithScaling(bd, window, io, mouse_x, mouse_y);
+                bd->LastValidMousePos = ImVec2((float)mouse_x, (float)mouse_y);
+                io.AddMousePosEvent((float)mouse_x, (float)mouse_y);
             }
         }
 
