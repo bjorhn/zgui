@@ -44,7 +44,5 @@ extern fn ImGui_ImplSDLRenderer3_Shutdown() void;
 extern fn ImGui_ImplSDLRenderer3_NewFrame() void;
 extern fn ImGui_ImplSDLRenderer3_RenderDrawData(draw_data: gui.DrawData, renderer: *const anyopaque) void;
 
-//TODO extern fn ImGui_ImplSDLRenderer3_CreateFontsTexture() bool;
-//TODO extern fn ImGui_ImplSDLRenderer3_DestroyFontsTexture() void;
-//TODO extern fn ImGui_ImplSDLRenderer3_CreateDeviceObjects() bool;
+//TODO extern fn ImGui_ImplSDLRenderer3_CreateDeviceObjects() void;
 //TODO extern fn ImGui_ImplSDLRenderer3_DestroyDeviceObjects() void;
